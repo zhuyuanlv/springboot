@@ -15,7 +15,7 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/queryAdminList")
-    public List<Admin> queryAdminList(){
+    public List<Admin> queryAdminList() {
         return adminService.queryAdminList();
     }
 }
