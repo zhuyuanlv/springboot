@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息列表</title>
+    <link th:href="@{webjars/bootstrap/4.5.3/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body onload="infoListJson()">
+<div class="text-center">
+    <h1>用户列表</h1>
+</div>
+<table class="table table-hover table-bordered">
+    <thead class="text-center">
+    <tr>
+        <td>ID</td>
+        <td>用户名</td>
+        <td>密码</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody class="text-center" id="tbodydata">
+    <!--<tr th:if="${adminList.size()} eq 0">
+        <td colspan="3">没有用户信息!</td>
+    </tr>
+    <tr th:each="admin : ${adminList}">
+        <td th:text="${admin.id}"></td>
+        <td th:text="${admin.username}"></td>
+        <td th:text="${admin.password}"></td>
+        <td>
+            <a th:href="@{/update(id=${admin.id})}" class="btn btn-primary btn-sm">修改</a>
+            <a th:href="@{/deleteById(id=${admin.id})}" class="btn btn btn-danger btn-sm">删除</a>
+        </td>
+    </tr>-->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="/addUser" class="btn btn-success">新增用户</a>
+</div>
+<script th:src="@{webjars/jquery/3.5.1/jquery.js}"></script>
+<script>
+    function update() {
+        $.ajax(
+            {
+                url: "/update",
+                type: "post",
+                dataType: "json",
+                data: "",
+                success: function (msg) {
+                    alert(msg);
+                }
+            }
+        );
+    }
+
+    function infoListJson() {
+        var data = {
+            "id": 1
+        }
+        $.ajax(
+            {
+                url: "/infoListJson",
+                type: "post",
+                dataType: "json",
+                data: data,
+                success: function (admin) {
+                    var str = "";
+                    $("#tbodydata").html("");
+                    for (i in admin) {
+                        str += "<tr>" +
+                            "<td>" + admin[i].id + "</td>" +
+                            "<td>" + admin[i].username + "</td>" +
+                            "<td>" + admin[i].password + "</td>" +
+                            "<td>" +
+                            "<a href='/update?id=" + admin[i].id + "'" + "class='btn btn-primary btn-sm'>修改</a>" +
+                            "<a href='/deleteById?id=" + admin[i].id + "'" + "class='btn btn btn-danger btn-sm'>删除</a>" +
+                            "</td>" +
+                            "</tr>";
+                    }
+                    document.getElementById("tbodydata").innerHTML = str;
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改用户信息</title>
+    <link th:href="@{webjars/bootstrap/4.5.3/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<div style="width:100%;text-align:center;margin-top: 10%">
+    <form action="/updateById" method="post" th:object="${admin}">
+        <div style="width:100%;text-align:center">
+            <label>ID:</label>
+            <input class="col-sm-2" type="text" name="id" readonly="true" th:value="${admin.id}">
+            <label>用户名:</label>
+            <input class="col-sm-2" type="text" name="username" th:value="${admin.username}">
+            <label>密码:</label>
+            <input class="col-sm-2" type="text" name="password" th:value="${admin.password}">
+        </div>
+        <br>
+        <input class="btn btn-success" type="submit" value="提交">
+    </form>
+</div>
+</body>
+</html>
